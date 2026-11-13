@@ -15,8 +15,6 @@ export const site = {
   phoneDisplay: "0878-1820-0060",
   phoneTel: "+6287818200060",
   whatsappNumber: "6287818200060",
-  whatsappMessage:
-    "Halo Klinik Medlife, saya ingin membuat janji temu. Nama: ... Layanan: ... Tanggal/jam: ...",
 
   address: {
     street: "Aniva Junction, Blok I No. 17, Medang",
@@ -60,7 +58,35 @@ export const site = {
   parking: null as string | null, // TODO Q11b: detail parkir (kapasitas, biaya, petunjuk)
 } as const;
 
-export const waLink = (message: string = site.whatsappMessage) =>
+/**
+ * Template pesan WhatsApp untuk janji temu.
+ * - Per baris satu kolom berlabel, dikelompokkan dengan judul tebal (*...* = bold di WhatsApp),
+ *   agar mudah diisi pasien dan mudah dibaca/disalin admin.
+ * - Nomor HP tidak diminta karena sudah terlihat dari WhatsApp.
+ * - `layanan` diisi otomatis bila tombol diklik dari halaman layanan tertentu.
+ */
+export function bookingMessage(layanan?: string) {
+  return [
+    "Halo Klinik Medlife, saya ingin membuat janji temu.",
+    "",
+    "*Data Pasien*",
+    "Nama lengkap: ",
+    "Tempat/tanggal lahir: ",
+    "Email (opsional): ",
+    "",
+    "*Janji Temu*",
+    `Layanan: ${layanan ?? ""}`,
+    "Keluhan: ",
+    "Tanggal & jam yang diinginkan: ",
+    "",
+    "*Pembayaran*",
+    "Pribadi / Asuransi (sebutkan nama asuransinya): ",
+    "",
+    "Terima kasih.",
+  ].join("\n");
+}
+
+export const waLink = (message: string = bookingMessage()) =>
   `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(message)}`;
 
 export const directionsLink = `https://www.google.com/maps/dir/?api=1&destination=${site.geo.lat},${site.geo.lng}`;
@@ -246,7 +272,7 @@ export const nav = [
 export const visitSteps = [
   {
     title: "Chat WhatsApp",
-    text: "Kirim nama, layanan yang dibutuhkan, dan jadwal yang Anda inginkan ke 0878-1820-0060.",
+    text: "Klik tombol WhatsApp, lalu lengkapi format yang sudah terisi: data pasien, layanan, keluhan, jadwal, dan metode pembayaran.",
   },
   {
     title: "Konfirmasi jadwal",

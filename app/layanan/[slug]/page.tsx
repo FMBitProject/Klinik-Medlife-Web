@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { services } from "@/content/site";
+import { bookingMessage, services } from "@/content/site";
 import { Icon } from "@/components/icons";
 import { Reveal } from "@/components/reveal";
 import { CtaBand, PriceTag, WaButton } from "@/components/ui";
@@ -17,12 +17,19 @@ export async function generateMetadata({ params }: PageProps<"/layanan/[slug]">)
   return { title: service.name, description: service.summary };
 }
 
+/**
+ * Halaman ini boleh "blocking" saat membaca params. Tanpa ini, Cache Components meminta
+ * params dibungkus <Suspense>, tetapi itu membuat slug yang salah mengembalikan status 200
+ * (soft 404) alih-alih 404. Enam slug di generateStaticParams tetap di-prerender penuh.
+ */
+export const instant = false;
+
 export default async function ServicePage({ params }: PageProps<"/layanan/[slug]">) {
   const { slug } = await params;
   const service = services.find((s) => s.slug === slug);
   if (!service) notFound();
 
-  const message = `Halo Klinik Medlife, saya ingin bertanya tentang layanan ${service.name}.`;
+  const message = bookingMessage(service.name);
   const others = services.filter((s) => s.slug !== slug);
 
   return (
@@ -57,7 +64,7 @@ export default async function ServicePage({ params }: PageProps<"/layanan/[slug]
             <PriceTag price={service.price} />
           </p>
           <WaButton message={message} className="mt-6 w-full">
-            Tanya via WhatsApp
+            Buat janji via WhatsApp
           </WaButton>
           <p className="mt-4 text-sm text-ink-600">Janji temu diperlukan. Tidak melayani BPJS.</p>
         </Reveal>
