@@ -32,11 +32,14 @@ export function Reveal({
   delay = 0,
   className = "",
   as: Tag = "div",
+  from = "bottom",
 }: {
   children: React.ReactNode;
   delay?: number;
   className?: string;
   as?: "div" | "li" | "article";
+  /** Arah masuk animasi. */
+  from?: "bottom" | "left" | "right";
 }) {
   const ref = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(false);
@@ -56,7 +59,7 @@ export function Reveal({
   return (
     <Tag
       ref={ref as React.Ref<never>}
-      data-reveal=""
+      data-reveal={from === "bottom" ? "" : from}
       data-visible={visible ? "" : undefined}
       className={className}
       style={{ "--reveal-delay": `${delay}ms` } as React.CSSProperties}

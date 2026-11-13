@@ -96,6 +96,8 @@ export type Service = {
   slug: string;
   name: string;
   icon: IconName;
+  /** Foto 4:3 di /public/layanan. */
+  image: { src: string; alt: string };
   summary: string;
   description: string;
   items: string[];
@@ -117,6 +119,7 @@ export const services: Service[] = [
     slug: "konsultasi",
     name: "Konsultasi Dokter",
     icon: "stethoscope",
+    image: { src: "/layanan/konsultasi.jpg", alt: "Dokter berkonsultasi dengan pasien di ruang praktik" },
     summary: "Praktek dokter umum untuk keluhan sehari-hari, dengan penjelasan yang jelas.",
     description:
       "Konsultasi dengan dokter untuk pemeriksaan dan penanganan keluhan kesehatan. Janji temu diperlukan — hubungi kami via WhatsApp untuk mengatur jadwal.",
@@ -127,6 +130,7 @@ export const services: Service[] = [
     slug: "apotek",
     name: "Apotek",
     icon: "pill",
+    image: { src: "/layanan/apotek.jpg", alt: "Meja pendaftaran dan rak obat di Apotek Medlife" },
     summary: "Farmasi di dalam klinik — tebus resep langsung setelah konsultasi.",
     description:
       "Apotek Medlife menyediakan obat sesuai resep dokter dan kebutuhan kesehatan harian. Tanyakan ketersediaan obat via WhatsApp sebelum datang.",
@@ -137,6 +141,7 @@ export const services: Service[] = [
     slug: "vaksinasi",
     name: "Vaksinasi",
     icon: "syringe",
+    image: { src: "/layanan/vaksinasi.jpg", alt: "Tenaga medis menyuntikkan vaksin ke lengan pasien" },
     summary: "Vaksinasi untuk anak dan dewasa.",
     description:
       "Layanan vaksinasi untuk anak dan dewasa. Hubungi kami untuk informasi jenis vaksin yang tersedia dan jadwalnya.",
@@ -147,6 +152,7 @@ export const services: Service[] = [
     slug: "laboratorium",
     name: "Laboratorium",
     icon: "flask",
+    image: { src: "/layanan/laboratorium.jpg", alt: "Petugas laboratorium memeriksa sampel darah" },
     summary: "Pemeriksaan laboratorium untuk menunjang diagnosis.",
     description:
       "Pemeriksaan laboratorium di klinik untuk mendukung diagnosis dokter. Hubungi kami untuk daftar pemeriksaan dan persiapan sebelum tes.",
@@ -157,6 +163,7 @@ export const services: Service[] = [
     slug: "infusion",
     name: "Infusion & Suntik Vitamin",
     icon: "drip",
+    image: { src: "/layanan/infusion.jpg", alt: "Kantong infus dan selang tetes" },
     summary: "Infusion treatment dan suntikan vitamin.",
     description:
       "Layanan infusion treatment dan suntikan vitamin yang dilakukan oleh tenaga medis. Konsultasikan dulu dengan dokter untuk menentukan kebutuhan Anda.",
@@ -167,6 +174,7 @@ export const services: Service[] = [
     slug: "homecare",
     name: "Homecare",
     icon: "home",
+    image: { src: "/layanan/homecare.jpg", alt: "Dokter memeriksa pasien lansia di rumah" },
     summary: "Layanan kesehatan di rumah Anda.",
     description:
       "Tenaga medis Medlife datang ke rumah Anda. Hubungi kami via WhatsApp untuk mengecek wilayah layanan dan jadwal.",

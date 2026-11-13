@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { bookingMessage, services } from "@/content/site";
@@ -40,14 +41,30 @@ export default async function ServicePage({ params }: PageProps<"/layanan/[slug]
         </Link>
       </div>
 
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-10 sm:px-6 lg:grid-cols-3">
-        <Reveal className="lg:col-span-2">
+      <div className="mx-auto grid max-w-6xl items-center gap-8 px-4 pt-8 sm:px-6 md:grid-cols-2 md:gap-14">
+        <Reveal from="left">
           <span className="grid size-12 place-items-center rounded-[6px] bg-brand-50 text-brand-700">
             <Icon name={service.icon} />
           </span>
           <h1 className="mt-5 text-4xl font-normal tracking-tight text-ink-900 sm:text-5xl">{service.name}</h1>
           <p className="mt-4 text-lg text-ink-600">{service.summary}</p>
-          <p className="mt-8 text-lg text-ink-800">{service.description}</p>
+        </Reveal>
+        <Reveal from="right" delay={120} className="overflow-hidden rounded-lg bg-ink-100">
+          <Image
+            src={service.image.src}
+            alt={service.image.alt}
+            width={1200}
+            height={900}
+            priority
+            sizes="(min-width: 1152px) 548px, (min-width: 768px) 50vw, 100vw"
+            className="aspect-[4/3] w-full object-cover"
+          />
+        </Reveal>
+      </div>
+
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-3">
+        <Reveal className="lg:col-span-2">
+          <p className="text-lg text-ink-800">{service.description}</p>
           <h2 className="mt-10 text-xl font-medium text-ink-900">Yang tersedia</h2>
           <ul className="mt-4 space-y-3">
             {service.items.map((item) => (

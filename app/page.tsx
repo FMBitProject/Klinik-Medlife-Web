@@ -2,7 +2,7 @@ import Image from "next/image";
 import { corporate, directionsLink, doctors, faq, services, site, visitSteps, waLink } from "@/content/site";
 import { Icon } from "@/components/icons";
 import { Reveal } from "@/components/reveal";
-import { ServiceCard } from "@/components/service-card";
+import { ServiceShowcase } from "@/components/service-showcase";
 import { Testimonials } from "@/components/testimonials";
 import { LocationBlock } from "@/components/location-block";
 import { CtaBand, PriceTag, Section, SecondaryLink, TextLink, WaButton } from "@/components/ui";
@@ -18,21 +18,44 @@ export default function Home() {
         id="layanan"
         eyebrow="Layanan"
         title="Dari konsultasi sampai tebus obat, di satu tempat"
-        intro="Enam layanan yang bisa Anda dapatkan di Medlife. Pilih untuk melihat detailnya."
-        action={<TextLink href="/layanan">Semua layanan</TextLink>}
+        intro="Enam layanan yang bisa Anda dapatkan di Medlife."
       >
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((s, i) => (
-            <Reveal key={s.slug} delay={(i % 3) * 80}>
-              <ServiceCard service={s} tone={i === 0 ? "accent" : i % 2 === 1 ? "muted" : "white"} />
-            </Reveal>
-          ))}
-        </div>
+        <ServiceShowcase />
       </Section>
 
       {/* 4. Tim dokter */}
-      <Section id="tim" eyebrow="Tim kami" title="Dokter & tenaga medis" tone="muted">
-        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+      <Section
+        id="tim"
+        eyebrow="Tim kami"
+        title="Dokter & tenaga medis"
+        intro="Orang-orang di balik pelayanan Klinik & Apotek Medlife setiap hari."
+        tone="muted"
+      >
+        {/* Foto bersama tim, bingkai sama dengan foto layanan */}
+        <Reveal className="border border-ink-200 bg-white p-3 sm:p-6">
+          <figure>
+            <div className="relative overflow-hidden bg-ink-100">
+              <Image
+                src="/tim-medlife.jpg"
+                alt="Foto bersama tim Klinik & Apotek Medlife berseragam hijau di ruang tindakan klinik"
+                width={1360}
+                height={766}
+                sizes="(min-width: 1152px) 1056px, 100vw"
+                className="aspect-[16/9] w-full object-cover"
+              />
+              <span aria-hidden className="pointer-events-none absolute left-4 top-4 size-7 border-l-2 border-t-2 border-white/90" />
+              <span aria-hidden className="pointer-events-none absolute bottom-4 right-4 size-7 border-b-2 border-r-2 border-white/90" />
+            </div>
+            <figcaption className="mt-4 flex items-center gap-4 text-xs font-medium uppercase tracking-[0.3em] text-ink-900">
+              <span aria-hidden className="h-px w-12 bg-ink-900" />
+              Tim Medlife
+            </figcaption>
+          </figure>
+        </Reveal>
+
+        {/* Profil per dokter (TODO Q2b: isi data asli di content/site.ts) */}
+        <h3 className="mt-14 text-xl font-medium text-ink-900">Profil dokter</h3>
+        <div className="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
           {doctors.map((d, i) => (
             <Reveal key={`${d.name}-${i}`} delay={i * 80} className="overflow-hidden rounded-lg border border-ink-100 bg-white">
               {d.photo ? (
