@@ -4,7 +4,6 @@ import "./globals.css";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { FloatingWhatsApp } from "@/components/floating-wa";
-import { RevealObserver } from "@/components/reveal";
 import { site } from "@/content/site";
 
 const geist = Geist({ variable: "--font-geist", subsets: ["latin"] });
@@ -31,6 +30,8 @@ const jsonLd = {
   name: site.name,
   slogan: site.tagline,
   url: site.url,
+  logo: `${site.url}/logo-medlife.png`,
+  image: `${site.url}/logo-medlife.png`,
   telephone: site.phoneTel,
   address: {
     "@type": "PostalAddress",
@@ -73,7 +74,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </main>
         <Footer />
         <FloatingWhatsApp />
-        <RevealObserver />
       </body>
     </html>
   );
