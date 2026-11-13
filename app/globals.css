@@ -49,6 +49,12 @@ body {
       filter 0.7s ease;
     transition-delay: var(--reveal-delay, 0ms);
   }
+  .js-reveal [data-reveal="left"] {
+    transform: translateX(-40px);
+  }
+  .js-reveal [data-reveal="right"] {
+    transform: translateX(40px);
+  }
   .js-reveal [data-reveal][data-visible] {
     opacity: 1;
     transform: none;
