@@ -1,43 +1,32 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 
-/** Mengamati semua elemen [data-reveal] dan menandainya saat masuk layar. Dipasang sekali di layout. */
-export function RevealObserver() {
-  useEffect(() => {
-    const observe = () => {
-      const els = document.querySelectorAll<HTMLElement>("[data-reveal]:not([data-visible])");
-      const io = new IntersectionObserver(
-        (entries) => {
-          for (const e of entries) {
-            if (e.isIntersecting) {
-              e.target.setAttribute("data-visible", "");
-              io.unobserve(e.target);
-            }
+/** Satu IntersectionObserver bersama untuk semua elemen Reveal. */
+const callbacks = new WeakMap<Element, () => void>();
+let shared: IntersectionObserver | null = null;
+function getObserver() {
+  if (!shared) {
+    shared = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            callbacks.get(e.target)?.();
+            callbacks.delete(e.target);
+            shared?.unobserve(e.target);
           }
-        },
-        { rootMargin: "0px 0px -8% 0px" },
-      );
-      els.forEach((el) => io.observe(el));
-      return io;
-    };
-
-    let io = observe();
-    // Navigasi client-side menambah elemen baru; amati ulang saat DOM berubah.
-    const mo = new MutationObserver(() => {
-      io.disconnect();
-      io = observe();
-    });
-    mo.observe(document.body, { childList: true, subtree: true });
-    return () => {
-      io.disconnect();
-      mo.disconnect();
-    };
-  }, []);
-
-  return null;
+        }
+      },
+      { rootMargin: "0px 0px -8% 0px" },
+    );
+  }
+  return shared;
 }
 
+/**
+ * Elemen yang muncul halus saat masuk layar. Status `data-visible` dikelola React
+ * (bukan dimutasi langsung di DOM) agar tidak terjadi hydration mismatch.
+ */
 export function Reveal({
   children,
   delay = 0,
@@ -49,8 +38,29 @@ export function Reveal({
   className?: string;
   as?: "div" | "li" | "article";
 }) {
+  const ref = useRef<HTMLElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = getObserver();
+    callbacks.set(el, () => setVisible(true));
+    io.observe(el);
+    return () => {
+      callbacks.delete(el);
+      io.unobserve(el);
+    };
+  }, []);
+
   return (
-    <Tag data-reveal className={className} style={{ "--reveal-delay": `${delay}ms` } as React.CSSProperties}>
+    <Tag
+      ref={ref as React.Ref<never>}
+      data-reveal=""
+      data-visible={visible ? "" : undefined}
+      className={className}
+      style={{ "--reveal-delay": `${delay}ms` } as React.CSSProperties}
+    >
       {children}
     </Tag>
   );

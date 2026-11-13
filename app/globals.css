@@ -2,15 +2,16 @@
 
 /*
  * Palet netral + satu aksen (FRONTEND-REFERENCE §3b, §4.8).
- * TODO Q18: ganti --color-brand-* dengan warna logo resmi Medlife (hindari merah; cek kontras AA).
+ * Aksen = biru logo Medlife (#2080C0), digelapkan sedikit agar teks/tombol lolos kontras WCAG AA di atas putih.
+ * Hijau logo (#50C050) sengaja tidak dipakai sebagai aksen kedua (satu aksen saja).
  */
 @theme {
-  --color-brand-50: #eef5fe;
-  --color-brand-100: #d9e9fc;
-  --color-brand-200: #b3d3f9;
-  --color-brand-600: #0866d0;
-  --color-brand-700: #0656b0;
-  --color-brand-800: #054690;
+  --color-brand-50: #edf6fc;
+  --color-brand-100: #d6eaf7;
+  --color-brand-200: #acd4ef;
+  --color-brand-600: #1874b3;
+  --color-brand-700: #135f94;
+  --color-brand-800: #0f4c77;
 
   --color-ink-50: #f7f7f7;
   --color-ink-100: #efefef;

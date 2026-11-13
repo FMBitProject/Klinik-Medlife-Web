@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -8,15 +9,10 @@ import { Icon, WhatsAppIcon } from "./icons";
 
 export function Logo() {
   return (
-    <Link href="/" className="flex items-center gap-2" aria-label={`${site.name} — Beranda`}>
-      {/* TODO Q18: ganti dengan logo resmi dari Instagram/Maps (taruh di /public/logo.svg) */}
-      <span className="grid size-8 place-items-center rounded-[6px] bg-brand-600 text-white">
-        <svg viewBox="0 0 24 24" className="size-4" fill="currentColor" aria-hidden>
-          <path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6V3Z" />
-        </svg>
-      </span>
-      <span className="text-[15px] font-medium leading-tight text-ink-900">
-        Klinik & Apotek <span className="text-brand-700">Medlife</span>
+    <Link href="/" className="flex items-center gap-3" aria-label={`${site.name} — Beranda`}>
+      <Image src="/logo-medlife.png" alt="" width={168} height={115} priority className="h-11 w-auto" />
+      <span className="hidden border-l border-ink-200 pl-3 text-xs font-medium uppercase leading-tight tracking-wider text-ink-600 sm:block">
+        Klinik &<br />Apotek
       </span>
     </Link>
   );
@@ -44,7 +40,7 @@ export function Header() {
 
       <header className="sticky top-3 z-40 px-3 sm:px-6">
         <div className="mx-auto max-w-6xl rounded-lg border border-ink-100 bg-white/90 shadow-sm shadow-black/5 backdrop-blur">
-          <div className="flex h-14 items-center justify-between pl-3 pr-2 sm:pl-4">
+          <div className="flex h-16 items-center justify-between pl-3 pr-2 sm:pl-4">
             <Logo />
 
             <nav className="hidden items-center lg:flex" aria-label="Navigasi utama">

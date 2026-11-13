@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { directionsLink, services, site, waLink } from "@/content/site";
 import { InstagramIcon, TikTokIcon, WhatsAppIcon } from "./icons";
@@ -9,6 +10,7 @@ export function Footer() {
     <footer className="border-t border-ink-100 bg-ink-50">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-4">
         <div className="md:col-span-2">
+          <Image src="/logo-medlife.png" alt="Logo Medlife" width={168} height={115} className="mb-4 h-16 w-auto" />
           <p className="text-lg font-medium text-ink-900">{site.name}</p>
           <p className="text-sm text-ink-600">{site.tagline}</p>
           <address className="mt-4 max-w-sm not-italic text-ink-600">{site.address.full}</address>
