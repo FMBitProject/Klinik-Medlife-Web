@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+/*
+ * Palet netral + satu aksen (FRONTEND-REFERENCE §3b, §4.8).
+ * TODO Q18: ganti --color-brand-* dengan warna logo resmi Medlife (hindari merah; cek kontras AA).
+ */
+@theme {
+  --color-brand-50: #eef5fe;
+  --color-brand-100: #d9e9fc;
+  --color-brand-200: #b3d3f9;
+  --color-brand-600: #0866d0;
+  --color-brand-700: #0656b0;
+  --color-brand-800: #054690;
+
+  --color-ink-50: #f7f7f7;
+  --color-ink-100: #efefef;
+  --color-ink-200: #e0e0e0;
+  --color-ink-500: #606060;
+  --color-ink-600: #535353;
+  --color-ink-700: #3a3a3a;
+  --color-ink-800: #262626;
+  --color-ink-900: #171717;
+
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
+body {
+  background: #ffffff;
+  color: var(--color-ink-900);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Animasi muncul saat scroll — hanya aktif bila JS jalan dan pengguna tidak meminta reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .js-reveal [data-reveal] {
+    opacity: 0;
+    transform: translateY(16px);
+    filter: blur(6px);
+    transition:
+      opacity 0.7s ease,
+      transform 0.7s ease,
+      filter 0.7s ease;
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  .js-reveal [data-reveal][data-visible] {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
